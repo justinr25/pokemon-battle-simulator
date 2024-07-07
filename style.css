@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: Pokemon Classic;
+    src: url(./assets/fonts/pokemon-classic.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* * {
+    background-color: rgba(0, 255, 89, 0.1) !important;
+} */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --font-family: "Libre Franklin", sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: var(--font-family);
+    background-color: black;
+    display: grid;
+    place-items: center;
+}
+
+.main-container {
+    position: absolute;
+    z-index: 1;
+    padding: 5rem;
+    background-color: #dedede;
+    max-width: 35%;
+    border-radius: 2rem;
+    box-shadow: 0 0 2rem rgb(129, 129, 129);
+
+    opacity: 0;
+    transition: opacity 2s ease-out;
+    pointer-events: none;
+    user-select: none;
+}
+
+.main-container.active {
+    opacity: 1;
+    pointer-events: auto;
+    user-select: auto;
+}
+
+.main-container.visible {
+    opacity: 1;
+}
+
+.main-container.usable {
+    pointer-events: auto;
+    user-select: auto;
+}
+
+h1 {
+    text-align: center;
+    margin: 0 5.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 5rem;
+}
+
+.pokemon-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+.input-icons-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.input-icons-container .valid-pokemon-indicator, .input-icons-container .invalid-pokemon-indicator {
+    display: none;
+}
+
+.input-icons-container .active {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+.input-icons-container p {
+    display: inline-block;
+}
+
+.input-icons-container .valid-pokemon-indicator {
+    background-color: rgb(176, 255, 178);
+}
+
+.input-icons-container .invalid-pokemon-indicator {
+    background-color: rgb(255, 157, 157);
+}
+
+input {
+    border: none;
+    font-family: var(--font-family);
+    border-radius: 3rem;
+    font-size: 1.5rem;
+    width: 40%;
+    padding: 0.5em;
+}
+
+button {
+    font-family: var(--font-family);
+    font-size: 1rem;
+    border: none;
+    color: white;
+    background-color: #00b7ff;
+    padding: 1.2em 5em;
+    margin-top: 5rem;
+    border-radius: 3rem;
+    opacity: 0.3;
+}
+
+button.active {
+    opacity: 1; 
+    cursor: pointer;
+}
+
+.canvas-container {
+    position: relative;
+    width: 1440px;
+    height: 810px;
+
+    opacity: 0;
+    transition: opacity 500ms ease-out;
+}
+
+.canvas-container.active {
+    opacity: 1;
+}
+
+.top-container-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.top-container {
+    font-family: 'Pokemon Classic';
+    margin-top: 1.5rem;
+
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 1fr 1fr;
+    /* grid-template-areas: 'name-1 healthbar-container-1 healthbar-container-2 name-2'; */
+    grid-template-areas:
+        ' healthbar-container-1 healthbar-container-2'
+        'name-1 name-2';
+    align-items: center;
+    justify-items: center;
+    justify-content: space-around;
+    row-gap: 0.5rem;
+
+    /* outline: 2px solid red; */
+}
+
+.name {
+    font-size: 1.7rem;
+}
+
+.healthbar-container {
+    background-color: #820000;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.healthbar {
+    background-color: rgb(26, 229, 26);
+    width: 100%;
+    height: 100%;
+
+    transition: width 500ms ease-out;
+}
+
+.healthbar-container-1 {
+    grid-area: healthbar-container-1;
+}
+
+.healthbar-container-1 .healthbar {
+    margin-left: auto;
+}
+
+.healthbar-container-2 {
+    grid-area: healthbar-container-2;
+}
+
+.name-1 {
+    grid-area: name-1;
+    justify-self: start;
+}
+
+.name-2 {
+    grid-area: name-2;
+    justify-self: end;
+}
+
+canvas {
+    background-image: url('./assets/images/battle-background-img.jpeg');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.victory-text {
+    font-family: 'Pokemon Classic';
+    font-size: 3.5rem;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-wrap: nowrap;
+
+    opacity: 0;
+    user-select: none;
+}
+
+.victory-text.active {
+    opacity: 1;
+}

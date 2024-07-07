@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Battle Simulator</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+        <script src="./js/main.js" defer type="module"></script>
+</head>
+<body>
+    <!-- <div class="main-container active" data-main-container> -->
+    <div class="main-container visible usable" data-main-container>
+        <h1>Pokemon Battle Simulator</h1>
+
+        <form action="" data-pokemon-input-form>
+            <div class="pokemon-input-container">
+                <label for="pokemon-input-1"> Enter the first pokemon:</label>
+                <div class="input-icons-container">
+                    <!-- <input type="text" id="pokemon-input-1" autocomplete="off" data-pokemon-input data-pokemon-input-1> -->
+                    <input type="text" id="pokemon-input-1" autocomplete="off" data-pokemon-input data-pokemon-input-1 value="charizard">
+                    <div class="valid-pokemon-indicator" data-valid-pokemon-indicator data-pokemon-input-1>
+                        <img src="./assets/images/circled-check.png" alt="circled-check">
+                        <p>Valid Pokemon!</p>
+                    </div>
+                    <div class="invalid-pokemon-indicator" data-invalid-pokemon-indicator data-pokemon-input-1>
+                        <img src="./assets/images/circled-X.png" alt="circled-X">
+                        <p>Invalid Pokemon!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-input-container">
+                <label for="pokemon-input-2">Enter the second pokemon:</label>
+                <div class="input-icons-container">
+                    <!-- <input type="text" id="pokemon-input-2" autocomplete="off" data-pokemon-input data-pokemon-input-2> -->
+                    <input type="text" id="pokemon-input-2" autocomplete="off" data-pokemon-input data-pokemon-input-2 value="ditto">
+                    <div class="valid-pokemon-indicator" data-valid-pokemon-indicator data-pokemon-input-2>
+                        <img src="./assets/images/circled-check.png" alt="circled-check">
+                        <p>Valid Pokemon!</p>
+                    </div>
+                    <div class="invalid-pokemon-indicator" data-invalid-pokemon-indicator data-pokemon-input-2>
+                        <img src="./assets/images/circled-X.png" alt="circled-X">
+                        <p>Invalid Pokemon!</p>
+                    </div>
+                </div>
+            </div>
+
+            <button data-pokemon-input-submit-btn>Battle!</button>
+        </form>
+    </div>
+
+    <div class="canvas-container" data-canvas-container>
+        <div class="top-container-wrapper">
+            <div class="top-container">
+                <div class="name name-1" data-pokemon-text-1>Pokemon 1</div>
+                <div class="healthbar-container healthbar-container-1">
+                    <div class="healthbar" data-healthbar-1></div>
+                </div>
+                <div class="healthbar-container healthbar-container-2">
+                    <div class="healthbar" data-healthbar-2></div>
+                </div>
+                <div class="name name-2" data-pokemon-text-2>Pokemon 2</div>
+            </div>
+        </div>
+
+        <canvas data-canvas></canvas>
+
+        <p class="victory-text" data-victory-text></p>
+    </div>
+
+</body>
+</html>
