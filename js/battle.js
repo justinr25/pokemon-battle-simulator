@@ -28,6 +28,8 @@ let isBattleMusicPlaying = false
 let isVictoryMusicPlaying = false
 const BATTLE_MUSIC = new Audio('./assets/music/1-15. Battle (Vs. Trainer).mp3')
 const VICTORY_MUSIC = new Audio('./assets/music/1-16. Victory (Vs. Trainer).mp3')
+const INITIAL_FLASH_OPACITY = 0.5
+let whiteFlashOpacity = INITIAL_FLASH_OPACITY
 
 
 // define functions
@@ -46,6 +48,15 @@ function animate() {
 
     pokemon1.update()
     pokemon2.update()
+
+    // white flash when fight ends
+    if (pokemon1.hp <= 0 || pokemon2.hp <= 0)
+    {
+        ctx.fillStyle = `rgba(255, 255, 255, ${whiteFlashOpacity})`
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        whiteFlashOpacity -= 0.02
+        if (whiteFlashOpacity <= 0) whiteFlashOpacity = INITIAL_FLASH_OPACITY
+    }
 }
 
 // define function to generate random attack delay
@@ -106,7 +117,7 @@ export function fadeOutVictoryMusic() {
         isVictoryMusicPlaying = false
     }
     gsap.to(VICTORY_MUSIC, {
-        duration: 8,
+        duration: 6,
         ease: 'ease-out',
         volume: 0,
         onComplete: temp
@@ -235,7 +246,15 @@ export function battle(pokemonData1, pokemonData2) {
     
         await new Promise(resolve => setTimeout(resolve, 1000))
         await startFight()
-        cancelAnimationFrame(animationId)
+        await new Promise(resolve => {
+            setTimeout(() => {
+                cancelAnimationFrame(animationId)
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                pokemon1.draw()
+                pokemon2.draw()
+                resolve()
+            }, 1000)
+        })
         resolve()
     })
 
