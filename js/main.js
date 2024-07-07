@@ -223,12 +223,12 @@ pokemonInputForm.addEventListener('submit', async (event) => {
     await battle(pokemonData1, pokemonData2)
     enableVictoryText()
     // console.log('FIGHT FINISHED')
-    setTimeout(toggleCanvasContainer, 4500)
+    setTimeout(toggleCanvasContainer, 6000)
     await new Promise(resolve => {
         setTimeout(() => {
             toggleMainContainer()
             resolve()
-        }, 5500)
+        }, 7000)
     })
     disableVictoryText()
     fadeOutVictoryMusic()
