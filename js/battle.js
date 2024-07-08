@@ -20,6 +20,7 @@ canvas.height = 810
 
 const MIN_ATK_DELAY = 500
 const MAX_ATK_DELAY = 2000
+const MAX_FPS = 60
 export let pokemon1
 export let pokemon2
 let animationId
@@ -30,18 +31,25 @@ const BATTLE_MUSIC = new Audio('./assets/music/1-15. Battle (Vs. Trainer).mp3')
 const VICTORY_MUSIC = new Audio('./assets/music/1-16. Victory (Vs. Trainer).mp3')
 const INITIAL_FLASH_OPACITY = 0.5
 let whiteFlashOpacity = INITIAL_FLASH_OPACITY
+let lastRenderTime = 0
 
 
 // define functions
 
 // define function for animation loop
 function movePokemonInFrame() {
-    pokemon1.position.x -= 8
-    pokemon2.position.x -= 8
+    pokemon1.position.x -= 15
+    pokemon2.position.x -= 16
 }
 
-function animate() {
+function animate(currentTime) {
     animationId = requestAnimationFrame(animate)
+    
+    // cap FPS at 60
+    const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
+    if (secondsSinceLastRender < 1 / MAX_FPS) return
+    lastRenderTime = 60
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     if (isMovePokemonInFrame) movePokemonInFrame()
@@ -84,7 +92,7 @@ function updateHealthbars() {
 // define function to toggle battle music 
 export function toggleBattleMusic() {
     if (!isBattleMusicPlaying) {
-    BATTLE_MUSIC.volume = 0.2
+    BATTLE_MUSIC.volume = 0.1
         BATTLE_MUSIC.play()
         isBattleMusicPlaying = true
     } else {
@@ -242,7 +250,7 @@ export function battle(pokemonData1, pokemonData2) {
         isMovePokemonInFrame = true
         setTimeout(() => {
             isMovePokemonInFrame = false
-        }, 1125)
+        }, 800)
     
         await new Promise(resolve => setTimeout(resolve, 1000))
         await startFight()
