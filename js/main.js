@@ -36,6 +36,8 @@ const victoryText = document.querySelector('[data-victory-text]')
 const POKEMON_API_URL = 'https://pokeapi.co/api/v2/pokemon/'
 let isPokemon1Valid = false
 let isPokemon2Valid = false
+let isLastResponseOk
+let lastValidPokemonName
 
 
 // define functions
@@ -76,6 +78,9 @@ function checkValidPokemon(response, pokemonInput, isPokemon1) {
             pokemonInvalidIndicator2.classList.remove('active')
             isPokemon2Valid = true
         }
+
+        isLastResponseOk = true
+        lastValidPokemonName = pokemonInput.value.toLowerCase()
     } else {
         if (isPokemon1) {
             pokemonValidIndicator1.classList.remove('active')
@@ -86,6 +91,8 @@ function checkValidPokemon(response, pokemonInput, isPokemon1) {
             pokemonInvalidIndicator2.classList.add('active')
             isPokemon2Valid = false
         }
+
+        isLastResponseOk = false
     }
 }
 
@@ -105,6 +112,7 @@ async function handleInputChanges(pokemonInput) {
     const response = await fetchPokemonResponse(pokemonName)
     const isPokemon1 = 'pokemonInput-1' in pokemonInput.dataset
     
+    if (lastValidPokemonName === pokemonInput.value.toLowerCase() && isLastResponseOk) return
     checkValidPokemon(response, pokemonInput, isPokemon1)
     checkBothValid()
 }
