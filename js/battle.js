@@ -38,8 +38,8 @@ let lastRenderTime = 0
 
 // define function for animation loop
 function movePokemonInFrame() {
-    pokemon1.position.x -= 15
-    pokemon2.position.x -= 16
+    pokemon1.position.x -= 25
+    pokemon2.position.x -= 26
 }
 
 function animate(currentTime) {
@@ -48,7 +48,7 @@ function animate(currentTime) {
     // cap FPS at 60
     const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
     if (secondsSinceLastRender < 1 / MAX_FPS) return
-    lastRenderTime = 60
+    lastRenderTime = currentTime
     
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -62,7 +62,7 @@ function animate(currentTime) {
     {
         ctx.fillStyle = `rgba(255, 255, 255, ${whiteFlashOpacity})`
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        whiteFlashOpacity -= 0.02
+        whiteFlashOpacity -= 0.03
         if (whiteFlashOpacity <= 0) whiteFlashOpacity = INITIAL_FLASH_OPACITY
     }
 }
@@ -161,7 +161,7 @@ function startFight() {
                 pokemon1.attackEnemy(pokemon2)
                 updateHealthbars()
     
-                console.log(`${pokemon1.name} attacked ${pokemon2.name}!`)
+                // console.log(`${pokemon1.name} attacked ${pokemon2.name}!`)
                 // console.log(`${pokemon1.name} hp: ${pokemon1.hp}`)
                 // console.log(`${pokemon2.name} hp: ${pokemon2.hp}`)
                 // console.log()
@@ -250,7 +250,7 @@ export function battle(pokemonData1, pokemonData2) {
         isMovePokemonInFrame = true
         setTimeout(() => {
             isMovePokemonInFrame = false
-        }, 800)
+        }, 1000)
     
         await new Promise(resolve => setTimeout(resolve, 1000))
         await startFight()
